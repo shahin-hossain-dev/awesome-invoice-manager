@@ -23,18 +23,26 @@ const InvoicePreview = ({ contentRef, handlePrint }) => {
     { key: "4", dataIndex: "total", title: "Total" },
   ];
 
+  const invoiceDate = new Date();
+
   return (
     <div>
       {/* <button onClick={reactToPrintFn}>Print</button> */}
       <div className={"overflow-x-scroll"}>
         <FormDiv ref={contentRef} className={"min-w-[500px]"}>
-          <Image
-            src={"/images/icons/logo.png"}
-            width={50}
-            height={50}
-            alt="logo"
-            className="w-[50px] h-[50px]"
-          />
+          <div className="flex items-center justify-between">
+            <Image
+              src={"/images/icons/logo.png"}
+              width={50}
+              height={50}
+              alt="logo"
+              className="w-[50px] h-[50px]"
+            />
+            <div>
+              <h2 className="uppercase text-2xl">Invoice</h2>
+              {invoiceDate.toLocaleString()}
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <FormInnerDiv title={"Bill From"}>
               <div>

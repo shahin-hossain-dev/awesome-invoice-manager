@@ -1,15 +1,16 @@
 import { Avatar, Button, Input, Layout, theme } from "antd";
 const { Header: AntHeader } = Layout;
-import { ClockCircleOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa6";
-import { TbLayoutSidebarLeftCollapse, TbSettings } from "react-icons/tb";
+import { TbSettings } from "react-icons/tb";
 import { BiSearch } from "react-icons/bi";
 import { MdLogout } from "react-icons/md";
 import { setIsCollapsed } from "@/redux/features/collapseSlice";
 import { useDispatch } from "react-redux";
 import { FaBarsStaggered } from "react-icons/fa6";
+
 const LinkItem = ({ title, icon: Icon }) => {
   return (
     <>

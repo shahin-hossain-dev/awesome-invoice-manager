@@ -10,6 +10,7 @@ import Button from "../../components/ui/Button";
 import InvoiceAction from "./InvoiceAction";
 import InvoicePreview from "./InvoicePreview";
 import { useReactToPrint } from "react-to-print";
+import Select from "../../components/ui/Select";
 
 const CreateInvoice = ({ isCreate }) => {
   return (
@@ -33,6 +34,13 @@ const CreateInvoice = ({ isCreate }) => {
                   placeholder="Company Name"
                   name="company_name"
                   className="!mb-2"
+                />
+                <Select
+                  label={"Company Name"}
+                  options={[
+                    { value: "1", label: <span>Apply 1</span> },
+                    { value: "2", label: <span>Dpply 2</span> },
+                  ]}
                 />
                 <FormItem
                   placeholder="Company Address"

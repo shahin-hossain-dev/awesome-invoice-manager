@@ -31,8 +31,10 @@ const InvoicePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
             <div className="lg:col-span-3">
               {isCreate && !isPreview && !isEdit && <CreateInvoice />}
-              {isEdit && !isPreview && <CreateInvoice />}
-              {isPreview && <InvoicePreview contentRef={contentRef} />}
+              {isEdit && !isPreview && !isCreate && <CreateInvoice />}
+              {isPreview && !isCreate && !isEdit && (
+                <InvoicePreview contentRef={contentRef} />
+              )}
               <div className="hidden">
                 <InvoicePreview contentRef={contentRef} />
               </div>
@@ -47,6 +49,8 @@ const InvoicePage = () => {
         buttonTitle={"Create Invoice"}
         onClick={handleDrawerOpen}
         setIsCreate={setIsCreate}
+        setIsEdit={setIsEdit}
+        setIsPreview={setIsPreview}
       />
 
       <div>
@@ -54,6 +58,7 @@ const InvoicePage = () => {
           handleDrawerOpen={handleDrawerOpen}
           setIsEdit={setIsEdit}
           setIsPreview={setIsPreview}
+          setIsCreate={setIsCreate}
         />
       </div>
     </div>

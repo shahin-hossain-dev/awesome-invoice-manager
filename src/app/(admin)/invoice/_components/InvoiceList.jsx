@@ -6,7 +6,12 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { showConfirmAlert } from "@/utils/alert";
 import Swal from "sweetalert2";
-const InvoiceList = ({ handleDrawerOpen, setIsEdit, setIsPreview }) => {
+const InvoiceList = ({
+  handleDrawerOpen,
+  setIsEdit,
+  setIsPreview,
+  setIsCreate,
+}) => {
   const [isRowsSelected, setIsRowsSelected] = useState(false);
 
   const dataSource = [
@@ -115,6 +120,7 @@ const InvoiceList = ({ handleDrawerOpen, setIsEdit, setIsPreview }) => {
   const handleEdit = (record) => {
     handleDrawerOpen();
     setIsPreview(false);
+    setIsCreate(false);
     setIsEdit(true);
   };
 
@@ -149,6 +155,7 @@ const InvoiceList = ({ handleDrawerOpen, setIsEdit, setIsPreview }) => {
   const handlePreview = () => {
     handleDrawerOpen();
     setIsEdit(false);
+    setIsCreate(false);
     setIsPreview(true);
   };
 
