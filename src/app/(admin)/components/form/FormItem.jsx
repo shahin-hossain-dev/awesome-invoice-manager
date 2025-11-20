@@ -15,18 +15,20 @@ const FormItem = ({
   disabled = false,
   readOnly = false,
   value = "",
+  ...props
 }) => {
   return (
     <Form.Item
       label={label}
       name={name}
       rules={[{ required: required, message: message, ...rules }]}
-      className={`!w-full ${className} `}
+      className={`!w-full ${className}`}
+      {...props}
     >
       <Input
         name={name}
         size={size}
-        className={`!w-full ${inputClassName}`}
+        className={`!w-full ${inputClassName} `}
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}

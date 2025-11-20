@@ -1,19 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa6";
-import FormItem from "../../components/ui/FormItem";
-import Counter from "../../components/partials/Counter";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 
-const InvoiceItems = () => {
+const InvoiceItems = ({ setValue }) => {
   const [items, setItems] = useState([
     {
       product_name: "",
-      description: "",
+      discount: "",
       quantity: "",
       unit_price: "",
       total_price: "",
+      tax: "",
     },
   ]);
 
@@ -35,6 +34,7 @@ const InvoiceItems = () => {
     allItems[idx][fieldName] = value;
 
     setItems(allItems);
+    setValue("items", allItems);
   };
 
   const handleRemoveField = (idx) => {
@@ -48,9 +48,10 @@ const InvoiceItems = () => {
         <thead>
           <tr>
             <th>Product Name</th>
-            <th>Description</th>
             <th>Quantity</th>
             <th>Unit Price</th>
+            <th>Tax</th>
+            <th>Discount</th>
             <th>Total</th>
             <th>Action</th>
           </tr>
@@ -64,30 +65,32 @@ const InvoiceItems = () => {
                   name={"product_name"}
                   placeholder="Product Name"
                   className="!mb-0"
+                  required={true}
                   onChange={(e) =>
                     handleChangeInput(e.target.name, e.target.value, idx)
                   }
                 />
               </td>
+
               <td>
                 <Input
-                  value={item.description}
-                  name={"description"}
-                  placeholder="Description"
+                  value={item.quantity}
+                  min={0}
+                  name={"quantity"}
+                  placeholder="Quantity"
+                  type="number"
                   className="!mb-0"
                   onChange={(e) =>
                     handleChangeInput(e.target.name, e.target.value, idx)
                   }
                 />
-              </td>
-              <td>
-                <Counter />
               </td>
               <td>
                 <Input
                   value={item.unit_price}
                   name={"unit_price"}
                   placeholder="Unit Price"
+                  min={0}
                   type="number"
                   className="!mb-0"
                   onChange={(e) =>
@@ -97,10 +100,37 @@ const InvoiceItems = () => {
               </td>
               <td>
                 <Input
-                  value={item.total}
+                  value={item.tax}
+                  name={"tax"}
+                  placeholder="Tax"
+                  min={0}
                   type="number"
-                  name={"total"}
+                  className="!mb-0"
+                  onChange={(e) =>
+                    handleChangeInput(e.target.name, e.target.value, idx)
+                  }
+                />
+              </td>
+              <td>
+                <Input
+                  value={item.discount}
+                  name={"discount"}
+                  min={0}
+                  type={"number"}
+                  placeholder="Discount"
+                  className="!mb-0"
+                  onChange={(e) =>
+                    handleChangeInput(e.target.name, e.target.value, idx)
+                  }
+                />
+              </td>
+              <td>
+                <Input
+                  value={item.total_price}
+                  type="number"
+                  name={"total_price"}
                   placeholder="Total Price"
+                  min={0}
                   className="!mb-0"
                   onChange={(e) =>
                     handleChangeInput(e.target.name, e.target.value, idx)

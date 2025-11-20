@@ -40,7 +40,7 @@ const InvoicePage = () => {
               </div>
             </div>
             <div className="lg:col-span-1">
-              <InvoiceAction handlePrint={handlePrint} />
+              <InvoiceAction handlePrint={handlePrint} isCreate={isCreate} />
             </div>
           </div>
         </div>

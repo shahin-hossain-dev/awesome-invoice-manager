@@ -1,70 +1,187 @@
 import { useRef } from "react";
 import FormDiv from "../../products/_components/FormDiv";
 import Image from "next/image";
-import FormItem from "../../components/ui/FormItem";
-import FormInnerDiv from "../../components/partials/form/FormInnderDiv";
-import { DatePicker, Form } from "antd";
+import FormItem from "../../components/form/FormItem";
+import FormInnerDiv from "../../components/form/FormInnderDiv";
+import { DatePicker, Form, Upload } from "antd";
 import InvoiceItems from "./InvoiceItems";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import InvoiceAction from "./InvoiceAction";
 import InvoicePreview from "./InvoicePreview";
 import { useReactToPrint } from "react-to-print";
-import Select from "../../components/ui/Select";
+import { SearchSelect, Select } from "../../components/form/Select";
+import dayjs from "dayjs";
+import {
+  FormDatePicker,
+  FormInput,
+  FormSelect,
+} from "../../components/form/fields";
+import { UploadOutlined } from "@ant-design/icons";
+import { Controller, useForm } from "react-hook-form";
 
 const CreateInvoice = ({ isCreate }) => {
+  const { register, control, handleSubmit, setValue } = useForm({
+    // defaultValues: {
+    //   firstName: "",
+    //   select: {},
+    // },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div>
       <Form
         layout="vertical"
         initialValues={{ due_amount: "10000", invoice_id: "#1IDF2D3" }}
+        onFinish={handleSubmit(onSubmit)}
       >
         <FormDiv>
           <div className="grid grid-cols-1 lg:grid-cols-2 bg-main-background rounded-2xl p-4">
             <div>
-              <Image
+              {/* <Image
                 src={"/images/icons/logo.png"}
                 width={50}
                 height={50}
                 alt="logo"
                 className="w-[50px] h-[50px]"
-              />
-              <FormInnerDiv title={"Bill From"}>
-                <FormItem
-                  placeholder="Company Name"
-                  name="company_name"
-                  className="!mb-2"
+              /> */}
+              <FormInnerDiv>
+                <Controller
+                  name="companyName"
+                  control={control}
+                  rules={{ required: "Company name is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormSelect
+                      showSearch={true}
+                      {...field}
+                      validateStatus={fieldState.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                      label={"Company Name"}
+                      placeholder="Company Name"
+                      options={[
+                        { value: "Apply", label: "Apply" },
+                        { value: "Dpply", label: "Dpply" },
+                      ]}
+                    />
+                  )}
                 />
-                <Select
-                  label={"Company Name"}
+                {/* Customer name */}
+                <Controller
+                  name="customerName"
+                  control={control}
+                  rules={{ required: "Customer name is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormSelect
+                      showSearch={true}
+                      {...field}
+                      label={"Customer Name"}
+                      placeholder="Customer Name"
+                      validateStatus={fieldState?.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                      options={[
+                        { value: "Apply", label: "Apply" },
+                        { value: "Dpply", label: "Dpply" },
+                      ]}
+                    />
+                  )}
+                />
+                {/*  reference */}
+                <Controller
+                  name="reference"
+                  control={control}
+                  // rules={{ required: "Customer name is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormInput
+                      {...field}
+                      label={"Reference"}
+                      placeholder="Reference"
+                      // validateStatus={fieldState?.error ? "error" : ""}
+                      // help={fieldState?.error?.message}
+                      options={[
+                        { value: "Apply", label: "Apply" },
+                        { value: "Dpply", label: "Dpply" },
+                      ]}
+                    />
+                  )}
+                />
+
+                {/* <SearchSelect
+                  label={"Customer Name"}
+                  placeholder="Customer Name"
                   options={[
-                    { value: "1", label: <span>Apply 1</span> },
-                    { value: "2", label: <span>Dpply 2</span> },
+                    { value: "1", label: "Apply" },
+                    { value: "2", label: "Dpply" },
                   ]}
-                />
-                <FormItem
+                /> */}
+
+                {/* <FormItem
+                  label="Reference"
                   placeholder="Company Address"
                   name="company_address"
                   className="!mb-2"
-                />
+                /> */}
               </FormInnerDiv>
             </div>
             <div>
-              <FormInnerDiv title={"Bill To"}>
-                <FormItem
-                  placeholder="Billing Name"
-                  name="billing_name"
-                  className="!mb-2"
+              <FormInnerDiv>
+                <Controller
+                  name="status"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <FormDatePicker {...field} label={"Date"} value={dayjs()} />
+                  )}
                 />
-                <FormItem
-                  placeholder="Billing Address"
-                  name="billing_address"
-                  className="!mb-2"
+                <Controller
+                  name="status"
+                  control={control}
+                  rules={{ required: "Status is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormSelect
+                      {...field}
+                      label={"Status"}
+                      placeholder="Invoice Status"
+                      validateStatus={fieldState?.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                      options={[
+                        { value: "pending", label: "Pending" },
+                        { value: "paid", label: "Paid" },
+                        { value: "cancel", label: "Cancel" },
+                      ]}
+                    />
+                  )}
                 />
-                <FormItem
-                  placeholder="Billing Phone"
-                  name="billing_phone"
-                  className="!mb-2"
+                <Controller
+                  name="file"
+                  control={control}
+                  rules={{ required: "File is required" }}
+                  render={({ field, fieldState }) => {
+                    const { value, onChange } = field;
+
+                    const handleChange = (info) => {
+                      const latestFile = info.fileList.slice(-1);
+                      onChange(latestFile);
+                    };
+
+                    return (
+                      <Form.Item
+                        label="Upload QR Code"
+                        validateStatus={fieldState.error ? "error" : ""}
+                        help={fieldState.error?.message}
+                      >
+                        <Upload
+                          fileList={value || []} // controlled by RHF
+                          onChange={handleChange}
+                          beforeUpload={() => false} // prevent auto upload
+                        >
+                          <Button icon={<UploadOutlined />}>Select File</Button>
+                        </Upload>
+                      </Form.Item>
+                    );
+                  }}
                 />
               </FormInnerDiv>
             </div>
@@ -85,15 +202,14 @@ const CreateInvoice = ({ isCreate }) => {
             </Form.Item>
 
             <FormItem
-              label="Due Amount"
-              placeholder="Company Name"
-              name="due_amount"
+              label="Shipping Fee"
+              placeholder="Shipping Fee"
+              name="shipping_fee"
               className="!mb-2"
-              readOnly={true}
             />
           </div>
 
-          <InvoiceItems />
+          <InvoiceItems setValue={setValue} />
 
           <div className="flex justify-end">
             <div className="space-y-2">
@@ -115,6 +231,7 @@ const CreateInvoice = ({ isCreate }) => {
               </div>
             </div>
           </div>
+          <input type="submit" />
         </FormDiv>
       </Form>
     </div>

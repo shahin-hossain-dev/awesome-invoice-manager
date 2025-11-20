@@ -1,7 +1,7 @@
 "use client";
 import { Button, Checkbox, Form, Input } from "antd";
 import FormDiv from "./FormDiv";
-import FormItem from "../../components/ui/FormItem";
+import FormItem from "../../components/form/FormItem";
 import TextEditor from "../../components/ui/TextEditor";
 import ImageUploader from "./ImageUploader";
 const onFinish = (values) => {
