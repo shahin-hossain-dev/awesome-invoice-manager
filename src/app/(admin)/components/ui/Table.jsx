@@ -166,7 +166,7 @@ const Table = (props) => {
       <Space className="!mb-2">
         {isSelected && (
           <Button onClick={handleAllDelete} className="!bg-red-500 !text-white">
-            Delete All
+            Delete Multiple
           </Button>
         )}
       </Space>
