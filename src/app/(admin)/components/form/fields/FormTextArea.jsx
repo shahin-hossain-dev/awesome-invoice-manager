@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, Input } from "antd";
+import { Form, Input, TextArea } from "antd";
 
 /**
- * FormInput
+ * FormTextArea
  * A reusable Ant Design Input wrapped in Form.Item
  * Works with React Hook Form via Controller
  */
-const FormInput = React.forwardRef(
+const FormTextArea = React.forwardRef(
   (
     {
       label = "",
@@ -14,6 +14,7 @@ const FormInput = React.forwardRef(
       value,
       onChange,
       onBlur,
+      rows = 3,
       placeholder = "",
       size = "middle",
       disabled = false,
@@ -35,7 +36,8 @@ const FormInput = React.forwardRef(
         className={`!w-full !mb-2 ${className}`}
         required={required}
       >
-        <Input
+        <Input.TextArea
+          rows={rows}
           ref={ref}
           name={name}
           value={value}
@@ -53,4 +55,4 @@ const FormInput = React.forwardRef(
   }
 );
 
-export default FormInput;
+export default FormTextArea;

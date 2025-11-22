@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { showConfirmAlert } from "@/utils/alert";
 
-const InvoiceList = ({
+const CategoryList = ({
   handleDrawerOpen,
   setIsEdit,
   setIsPreview,
@@ -17,76 +17,28 @@ const InvoiceList = ({
   const dataSource = [
     {
       key: "1",
-      date: "20-10-25",
-      invoiceId: "INV12345",
-      title: "This Is Blog 1",
-      company: "Company 1",
-      customer: "Customer",
-      total: "Total",
-      paid: "2000",
-      status: "paid",
+      category_name: "Category 1",
+      category_details: "Details 1",
     },
     {
       key: "2",
-      date: "20-10-25",
-      invoiceId: "INV12346",
-      title: "This Is Blog 2",
-      company: "Company 2",
-      customer: "Customer",
-      total: "Total",
-      paid: "2000",
-      status: "paid",
-    },
-    {
-      key: "3",
-      date: "20-10-25",
-      invoiceId: "INV12346",
-      title: "This Is Blog 2",
-      company: "Company 2",
-      customer: "Customer",
-      total: "Total",
-      paid: "2000",
-      status: "paid",
+      category_name: "Category 1",
+      category_details: "Details 1",
     },
   ];
 
   const columns = [
     {
-      title: "Date",
-      dataIndex: "date",
+      title: "Category Name",
+      dataIndex: "category_name",
       key: "1",
       sorter: (a, b) => Number(a.key) - Number(b.key),
     },
     {
-      title: "Invoice Id",
-      dataIndex: "invoiceId",
+      title: "Details",
+      dataIndex: "category_details",
       key: "2",
       sorter: (a, b) => a.title.localeCompare(b.title),
-    },
-    {
-      title: "Company",
-      dataIndex: "company",
-      key: "3",
-    },
-    {
-      title: "Customer",
-      dataIndex: "customer",
-      key: "4",
-    },
-    {
-      title: "Total",
-      dataIndex: "total",
-      key: "5",
-    },
-    {
-      title: "Paid",
-      dataIndex: "paid",
-      key: "6",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "7",
     },
 
     {
@@ -176,4 +128,4 @@ const InvoiceList = ({
   );
 };
 
-export default InvoiceList;
+export default CategoryList;

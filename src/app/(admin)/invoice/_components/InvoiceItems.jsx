@@ -48,8 +48,8 @@ const InvoiceItems = ({ setValue }) => {
         <thead>
           <tr>
             <th>Product Name</th>
-            <th>Quantity</th>
             <th>Unit Price</th>
+            <th>Quantity</th>
             <th>Tax</th>
             <th>Discount</th>
             <th>Total</th>
@@ -74,10 +74,10 @@ const InvoiceItems = ({ setValue }) => {
 
               <td>
                 <Input
-                  value={item.quantity}
+                  value={item.unit_price}
+                  name={"unit_price"}
+                  placeholder="Unit Price"
                   min={0}
-                  name={"quantity"}
-                  placeholder="Quantity"
                   type="number"
                   className="!mb-0"
                   onChange={(e) =>
@@ -87,10 +87,10 @@ const InvoiceItems = ({ setValue }) => {
               </td>
               <td>
                 <Input
-                  value={item.unit_price}
-                  name={"unit_price"}
-                  placeholder="Unit Price"
+                  value={item.quantity}
                   min={0}
+                  name={"quantity"}
+                  placeholder="Quantity"
                   type="number"
                   className="!mb-0"
                   onChange={(e) =>

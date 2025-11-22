@@ -4,6 +4,10 @@ import FormDiv from "./FormDiv";
 import FormItem from "../../components/form/FormItem";
 import TextEditor from "../../components/ui/TextEditor";
 import ImageUploader from "./ImageUploader";
+import { Controller, useForm } from "react-hook-form";
+import { FormInput, FormSelect } from "../../components/form/fields";
+import FormTextArea from "../../components/form/fields/FormTextArea";
+
 const onFinish = (values) => {
   console.log("Success:", values);
 };
@@ -12,6 +16,17 @@ const onFinishFailed = (errorInfo) => {
 };
 
 const ProductForm = () => {
+  const { register, control, handleSubmit, setValue } = useForm({
+    // defaultValues: {
+    //   firstName: "",
+    //   select: {},
+    // },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div>
       <div>
@@ -21,76 +36,140 @@ const ProductForm = () => {
           // wrapperCol={{ span: 16 }}
           // style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          onFinish={handleSubmit(onSubmit)}
           autoComplete="off"
           layout="vertical"
           size="large"
           className=" !w-full  "
         >
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-4">
-            <div className="col-span-2 relative ">
+            <div className="col-span-3 relative ">
               <FormDiv title={"Product Information"}>
-                {/* <Form.Item
-                  label="Product Name"
-                  name="product_name"
-                  rules={[
-                    { required: true, message: "Please input your username!" },
-                  ]}
-                  className=""
-                >
-                  <Input />
-                </Form.Item> */}
-                <FormItem
-                  label="Product Name"
-                  name="Product Name"
-                  message="Please enter product name"
-                  placeholder="Enter product name"
-                  required={true}
+                {/*  product name */}
+                <Controller
+                  name="productName"
+                  control={control}
+                  rules={{ required: "Product name is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormInput
+                      {...field}
+                      // required={true}
+                      size={"large"}
+                      label={"Product Name"}
+                      placeholder="Product Name"
+                      validateStatus={fieldState?.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                    />
+                  )}
                 />
                 <div className="flex items-center gap-2 lg:gap-4 w-full">
-                  <FormItem
-                    label="SKU"
-                    name="SKU"
-                    message="SKU is required"
-                    required={true}
-                    placeholder="Input SKU"
+                  {/* product price */}
+                  <Controller
+                    name="Product Price"
+                    control={control}
+                    rules={{ required: "Product price is required" }}
+                    render={({ field, fieldState }) => (
+                      <FormInput
+                        {...field}
+                        // required={true}
+                        size={"large"}
+                        label={"Product Price"}
+                        placeholder="Product Price"
+                        validateStatus={fieldState?.error ? "error" : ""}
+                        help={fieldState?.error?.message}
+                      />
+                    )}
                   />
+                  {/* product code */}
+                  <Controller
+                    name="Product Code"
+                    control={control}
+                    rules={{ required: "Product code is required" }}
+                    render={({ field, fieldState }) => (
+                      <FormInput
+                        {...field}
+                        // required={true}
+                        size={"large"}
+                        label={"Product Price"}
+                        placeholder="Product Price"
+                        validateStatus={fieldState?.error ? "error" : ""}
+                        help={fieldState?.error?.message}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="flex items-center gap-2 lg:gap-4 w-full">
+                  {/* product category*/}
+                  <Controller
+                    name="productCategory"
+                    control={control}
+                    rules={{ required: "Product Category  is required" }}
+                    render={({ field, fieldState }) => (
+                      <FormSelect
+                        showSearch={true}
+                        {...field}
+                        label={"Product Category "}
+                        placeholder="Product Category "
+                        validateStatus={fieldState?.error ? "error" : ""}
+                        help={fieldState?.error?.message}
+                        options={[
+                          { value: "Apply", label: "Apply" },
+                          { value: "Dpply", label: "Dpply" },
+                        ]}
+                      />
+                    )}
+                  />
+                  {/* product tax rate */}
+                  <Controller
+                    name="taxRate"
+                    control={control}
+                    rules={{ required: "TAX rate is required" }}
+                    render={({ field, fieldState }) => (
+                      <FormSelect
+                        showSearch={true}
+                        {...field}
+                        label={"Tax Rate"}
+                        placeholder="Tax Rate"
+                        validateStatus={fieldState?.error ? "error" : ""}
+                        help={fieldState?.error?.message}
+                        options={[
+                          { value: "rate-1", label: "Rate 1" },
+                          { value: "rate-2", label: "Rate 2" },
+                        ]}
+                      />
+                    )}
+                  />
+                </div>
 
-                  <FormItem
-                    name="barcode"
-                    label="Barcode"
-                    message="Barcode is required"
-                    required={true}
-                    placeholder="Input Barcode"
-                  />
-                </div>
-                <div>
-                  <TextEditor label={"Product Description"} />
-                </div>
+                {/* product image upload */}
                 <div>
                   <ImageUploader label="Product Images" required={true} />
                 </div>
-              </FormDiv>
-            </div>
 
-            <div className="col-span-1 ">
-              <FormDiv title={"Pricing"}>
-                <FormItem
-                  label="Best Price"
-                  name="base_price"
-                  required={true}
-                  message="Price is required"
-                  placeholder="Enter product Price"
+                {/*  product details */}
+                <Controller
+                  name="productDescription"
+                  control={control}
+                  // rules={{ required: "Product description name is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormTextArea
+                      {...field}
+                      // required={true}
+                      rows={4}
+                      size={"large"}
+                      label={"Product Name"}
+                      placeholder="Product Name"
+                      // validateStatus={fieldState?.error ? "error" : ""}
+                      // help={fieldState?.error?.message}
+                    />
+                  )}
                 />
 
-                <FormItem
-                  label="Discount Price"
-                  name="discount_price"
-                  required={true}
-                  message="discount_price is required"
-                  placeholder="Enter product discount price"
-                />
+                <div className="mt-4">
+                  <Button type="primary" htmlType="submit" className="!w-full">
+                    Create Product
+                  </Button>
+                </div>
               </FormDiv>
             </div>
           </div>

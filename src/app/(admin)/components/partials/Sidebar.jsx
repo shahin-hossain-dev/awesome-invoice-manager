@@ -34,11 +34,12 @@ const Sidebar = () => {
       dashboard: "/",
       invoice: "/invoice",
       products: "/products",
+      category: "/category",
       customers: "/customers",
       users: "/users",
       reports: "/reports",
-      reports: "/reports",
       setting: "/settings",
+      tax: "/settings/tax",
       globalSetting: "/global-setting",
     };
 
@@ -50,6 +51,8 @@ const Sidebar = () => {
       5: ROUTES.users,
       6: ROUTES.reports,
       7: ROUTES.setting,
+      8: ROUTES.category,
+      9: ROUTES.tax,
     };
 
     router.push(routes[e.key] || "/");
@@ -106,6 +109,11 @@ const Sidebar = () => {
       //   },
       // ],
     },
+    {
+      key: "8",
+      label: "Category",
+      icon: <AiFillProduct className="text-icon" />,
+    },
 
     {
       key: "4",
@@ -122,6 +130,11 @@ const Sidebar = () => {
         {
           key: "7",
           label: "App Setting",
+          icon: <MdAddShoppingCart className="text-icon" />,
+        },
+        {
+          key: "9",
+          label: "Tax",
           icon: <MdAddShoppingCart className="text-icon" />,
         },
       ],

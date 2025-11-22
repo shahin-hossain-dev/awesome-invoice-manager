@@ -92,3 +92,9 @@ body {
     }
   }
 }
+
+/* AndD styles Override */
+
+.ant-drawer-header {
+  @apply !bg-white;
+}

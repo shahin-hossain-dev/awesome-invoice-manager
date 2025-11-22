@@ -2,8 +2,10 @@
 import useDrawerOpenClose from "@/hooks/useDrawerOpen";
 import PageTopBar from "../../components/partials/header/PageTopBar";
 import Drawer from "../../components/ui/Drawer";
+import TaxList from "./_components/TaxList";
+import TaxForm from "./_components/TaxForm";
 
-const Category = () => {
+const TaxPage = () => {
   const { isDrawerOpen, handleDrawerOpen, handleDrawerClose } =
     useDrawerOpenClose();
 
@@ -17,20 +19,22 @@ const Category = () => {
     <div>
       <div>
         <Drawer
-          title={"Add Category"}
+          title={"Add Tax Rate"}
           open={isDrawerOpen}
           onClose={handleDrawerClose}
+          className={"!bg-main-background"}
         >
-          Add Some Category
+          <TaxForm />
         </Drawer>
         <PageTopBar
-          buttonTitle={"Add Category"}
+          buttonTitle={"Add Tax Rate"}
           onChange={changeValue}
           onClick={handleDrawerOpen}
         />
+        <TaxList />
       </div>
     </div>
   );
 };
 
-export default Category;
+export default TaxPage;
