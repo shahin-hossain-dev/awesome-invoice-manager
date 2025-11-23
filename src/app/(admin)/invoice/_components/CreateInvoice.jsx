@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import FormDiv from "../../products/_components/FormDiv";
+import FormDiv from "../../components/form/FormDiv";
 import Image from "next/image";
 import FormItem from "../../components/form/FormItem";
 import FormInnerDiv from "../../components/form/FormInnderDiv";

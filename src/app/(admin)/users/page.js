@@ -3,6 +3,8 @@
 import useDrawerOpenClose from "@/hooks/useDrawerOpen";
 import Drawer from "../components/ui/Drawer";
 import PageTopBar from "../components/partials/header/PageTopBar";
+import UserList from "./_components/UserList";
+import UserForm from "./_components/UserForm";
 
 const UsersPage = () => {
   const { isDrawerOpen, handleDrawerOpen, handleDrawerClose } =
@@ -16,9 +18,12 @@ const UsersPage = () => {
         onClose={handleDrawerClose}
         className={"!bg-main-background"}
       >
-        <div>{/* <ProductForm /> */}</div>
+        <div>
+          <UserForm />
+        </div>
       </Drawer>
       <PageTopBar buttonTitle={"Create User"} onClick={handleDrawerOpen} />
+      <UserList />
     </div>
   );
 };

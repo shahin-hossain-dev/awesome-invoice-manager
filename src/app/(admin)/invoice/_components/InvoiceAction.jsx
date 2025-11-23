@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../../components/ui/Button";
-import FormDiv from "../../products/_components/FormDiv";
+import FormDiv from "../../components/form/FormDiv";
 import { FaRegEye } from "react-icons/fa";
 import { FaPrint } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";

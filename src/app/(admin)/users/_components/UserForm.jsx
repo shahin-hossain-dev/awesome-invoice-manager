@@ -1,12 +1,10 @@
 "use client";
 import { Button, Form } from "antd";
 import FormDiv from "../../components/form/FormDiv";
-import ImageUploader from "../../products/_components/ImageUploader";
 import { Controller, useForm } from "react-hook-form";
 import { FormInput, FormSelect } from "../../components/form/fields";
-import FormTextArea from "../../components/form/fields/FormTextArea";
 
-const CustomerForm = () => {
+const UserForm = () => {
   const { register, control, handleSubmit, setValue } = useForm({
     // defaultValues: {
     //   firstName: "",
@@ -39,16 +37,16 @@ const CustomerForm = () => {
                 <div className="flex items-center gap-2 lg:gap-4 w-full">
                   {/*  product name */}
                   <Controller
-                    name="customerName"
+                    name="userName"
                     control={control}
-                    rules={{ required: "Customer name is required" }}
+                    rules={{ required: "User name is required" }}
                     render={({ field, fieldState }) => (
                       <FormInput
                         {...field}
                         // required={true}
                         size={"large"}
-                        label={"Customer Name"}
-                        placeholder="Customer Name"
+                        label={"User Name"}
+                        placeholder="User Name"
                         validateStatus={fieldState?.error ? "error" : ""}
                         help={fieldState?.error?.message}
                       />
@@ -56,16 +54,17 @@ const CustomerForm = () => {
                   />
                   {/* company name */}
                   <Controller
-                    name="company"
+                    name="email"
                     control={control}
-                    rules={{ required: "Company  is required" }}
+                    rules={{ required: "Email is required" }}
                     render={({ field, fieldState }) => (
                       <FormInput
                         {...field}
                         // required={true}
+                        type="email"
                         size={"large"}
-                        label={"Company "}
-                        placeholder="Company "
+                        label={"Email"}
+                        placeholder="Email"
                         validateStatus={fieldState?.error ? "error" : ""}
                         help={fieldState?.error?.message}
                       />
@@ -217,4 +216,4 @@ const CustomerForm = () => {
   );
 };
 
-export default CustomerForm;
+export default UserForm;

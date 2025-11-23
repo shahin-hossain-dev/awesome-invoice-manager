@@ -1,6 +1,6 @@
 "use client";
 import { Button, Checkbox, Form, Input } from "antd";
-import FormDiv from "@/app/(admin)/products/_components/FormDiv";
+import FormDiv from "@/app/(admin)/components/form/FormDiv";
 
 import { Controller, useForm } from "react-hook-form";
 import { FormInput } from "@/app/(admin)/components/form/fields";

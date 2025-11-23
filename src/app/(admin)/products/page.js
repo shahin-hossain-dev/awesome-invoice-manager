@@ -3,6 +3,7 @@ import PageTopBar from "../components/partials/header/PageTopBar";
 import Drawer from "../components/ui/Drawer";
 import useDrawerOpenClose from "@/hooks/useDrawerOpen";
 import ProductForm from "./_components/ProductForm";
+import ProductList from "./_components/ProductList";
 
 const ProductPage = () => {
   const { isDrawerOpen, handleDrawerOpen, handleDrawerClose } =
@@ -21,6 +22,7 @@ const ProductPage = () => {
         </div>
       </Drawer>
       <PageTopBar buttonTitle={"Create Product"} onClick={handleDrawerOpen} />
+      <ProductList />
     </div>
   );
 };
