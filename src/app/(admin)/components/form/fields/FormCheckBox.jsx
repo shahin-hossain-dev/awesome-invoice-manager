@@ -28,7 +28,7 @@ const FormCheckbox = React.forwardRef(
 
     return (
       <Form.Item
-        label={label}
+        // label={label}
         valuePropName="checked" // important for Checkbox
         validateStatus={validateStatus}
         help={help}

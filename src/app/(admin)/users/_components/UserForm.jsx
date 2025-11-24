@@ -1,11 +1,22 @@
 "use client";
-import { Button, Form } from "antd";
+import { Button, Checkbox, Form, Radio } from "antd";
 import FormDiv from "../../components/form/FormDiv";
 import { Controller, useForm } from "react-hook-form";
-import { FormInput, FormSelect } from "../../components/form/fields";
+import {
+  FormCheckBox,
+  FormInput,
+  FormSelect,
+} from "../../components/form/fields";
+import FormCheckbox from "../../components/form/fields/FormCheckBox";
 
 const UserForm = () => {
-  const { register, control, handleSubmit, setValue } = useForm({
+  const {
+    register,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
     // defaultValues: {
     //   firstName: "",
     //   select: {},
@@ -15,6 +26,11 @@ const UserForm = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  const options = [
+    { label: "Only View", value: "only_read" },
+    { label: "Edit and View", value: "edit_view" },
+  ];
 
   return (
     <div>
@@ -35,7 +51,7 @@ const UserForm = () => {
             <div className="col-span-3 relative ">
               <FormDiv title={"Product Information"}>
                 <div className="flex items-center gap-2 lg:gap-4 w-full">
-                  {/*  product name */}
+                  {/*  User name */}
                   <Controller
                     name="userName"
                     control={control}
@@ -75,51 +91,35 @@ const UserForm = () => {
                   {/*  email */}
 
                   <Controller
-                    name="email"
+                    name="password"
                     control={control}
-                    // rules={{ required: "Email is required" }}
+                    rules={{ required: "Password is required" }}
                     render={({ field, fieldState }) => (
                       <FormInput
                         {...field}
                         // required={true}
                         size={"large"}
-                        label={"Email"}
-                        placeholder="Email"
-                        // validateStatus={fieldState?.error ? "error" : ""}
-                        // help={fieldState?.error?.message}
-                      />
-                    )}
-                  />
-                  {/* product code */}
-                  <Controller
-                    name="phone"
-                    control={control}
-                    rules={{ required: "Phone no. is required" }}
-                    render={({ field, fieldState }) => (
-                      <FormInput
-                        {...field}
-                        // required={true}
-                        size={"large"}
-                        label={"Phone"}
-                        placeholder="Phone"
+                        type={"password"}
+                        label={"Password"}
+                        placeholder="Password"
                         validateStatus={fieldState?.error ? "error" : ""}
                         help={fieldState?.error?.message}
                       />
                     )}
                   />
-                </div>
-                <div>
+                  {/* confirm password  */}
                   <Controller
-                    name="address"
+                    name="confirmPassword"
                     control={control}
-                    rules={{ required: "Address no. is required" }}
+                    rules={{ required: "Confirm password is required" }}
                     render={({ field, fieldState }) => (
                       <FormInput
                         {...field}
                         // required={true}
+                        type="password"
                         size={"large"}
-                        label={"Address"}
-                        placeholder="Address"
+                        label={"Confirm Password"}
+                        placeholder="Confirm Password"
                         validateStatus={fieldState?.error ? "error" : ""}
                         help={fieldState?.error?.message}
                       />
@@ -127,40 +127,50 @@ const UserForm = () => {
                   />
                 </div>
 
-                <div className="flex items-center gap-2 lg:gap-4 w-full">
-                  {/*  city */}
-
+                {/* user role */}
+                <div className="w-full">
                   <Controller
-                    name="city"
+                    name="role"
                     control={control}
                     // rules={{ required: "Email is required" }}
                     render={({ field, fieldState }) => (
-                      <FormInput
-                        {...field}
-                        // required={true}
-                        size={"large"}
-                        label={"City"}
-                        placeholder="City"
-                        // validateStatus={fieldState?.error ? "error" : ""}
-                        // help={fieldState?.error?.message}
-                      />
+                      <Form.Item name="radio-group" label="User Role">
+                        <Radio.Group {...field} value={field?.value}>
+                          <Radio value="admin">Admin</Radio>
+                          <Radio value="moderator">Moderator</Radio>
+                          <Radio value="customer">Customer</Radio>
+                        </Radio.Group>
+                      </Form.Item>
                     )}
                   />
-                  {/* product code */}
+                  {errors.role && (
+                    <div className="text-red-500 mt-2">
+                      {errors.role.message}
+                    </div>
+                  )}
+                </div>
+                {/* user role */}
+                <div className="w-full">
                   <Controller
-                    name="postalCode"
+                    name="permission"
                     control={control}
-                    // rules={{ required: "Phone no. is required" }}
-                    render={({ field, fieldState }) => (
-                      <FormInput
-                        {...field}
-                        // required={true}
-                        size={"large"}
-                        label={"Postal Code"}
-                        placeholder="Postal Code"
-                        // validateStatus={fieldState?.error ? "error" : ""}
-                        // help={fieldState?.error?.message}
-                      />
+                    // rules={{ required: "Email is required" }}
+                    render={({ field }) => (
+                      <>
+                        <Checkbox.Group
+                          label="User Role"
+                          {...field}
+                          options={options}
+                          value={field.value || []}
+                          defaultValue={["Pear"]}
+                          // onChange={onChange}
+                        />
+                        {errors.permission && (
+                          <div style={{ color: "red", marginTop: 6 }}>
+                            {errors.services.message}
+                          </div>
+                        )}
+                      </>
                     )}
                   />
                 </div>
