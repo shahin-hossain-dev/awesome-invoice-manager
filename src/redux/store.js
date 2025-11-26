@@ -10,19 +10,19 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-
 import { baseApi } from "./api/baseApi";
-import collapseSlice from "./features/collapseSlice";
+import { authReducer, collapseReducer } from "./features";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [], // which slice you want persistent put here as string
+  whitelist: ["authReducer"], // which slice you want persistent put here as string
   version: 1,
 };
 const rootReducer = combineReducers({
   // here will put reducers
-  collapseSlice,
+  authReducer,
+  collapseReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

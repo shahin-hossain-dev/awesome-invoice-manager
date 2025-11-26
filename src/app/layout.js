@@ -13,7 +13,7 @@ const publicSanse = Public_Sans({
 });
 
 export default function RootLayout({ children }) {
-  const result = authChecker();
+  // const result = authChecker();
 
   return (
     <html lang="en">

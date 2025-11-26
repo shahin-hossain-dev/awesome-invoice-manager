@@ -14,7 +14,6 @@ axiosSecure.interceptors.response.use(
       Router.push("/login");
       console.log("Unauthorized Users");
     } else if (error.response?.status === 403) {
-      Router.push("/login");
       console.log("Forbidden Access");
     } else if (!error?.response) {
       console.log("Network Error");

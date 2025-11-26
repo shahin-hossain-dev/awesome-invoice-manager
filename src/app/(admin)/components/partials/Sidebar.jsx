@@ -26,7 +26,7 @@ import { setIsCollapsed } from "@/redux/features/collapseSlice";
 const Sidebar = () => {
   const router = useRouter();
   // const [isCollapsed, setIsCollapsed] = useState(false);
-  const { isCollapsed } = useSelector((state) => state.collapseSlice);
+  const { isCollapsed } = useSelector((state) => state.collapseReducer);
   const dispatch = useDispatch();
 
   const handleNavigateRoutes = (e) => {

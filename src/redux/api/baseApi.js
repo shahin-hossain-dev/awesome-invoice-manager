@@ -10,9 +10,9 @@ export const baseApi = createApi({
   //     "Content-Type": "application/json",
   //   },
   // }),
-  baseQuery: async ({ url, method, data }) => {
+  baseQuery: async ({ url, method, data, params, headers }) => {
     try {
-      const result = await axiosSecure({ url, method, data });
+      const result = await axiosSecure({ url, method, data, params, headers });
       return { data: result.data };
     } catch (axiosError) {
       const err = axiosError;

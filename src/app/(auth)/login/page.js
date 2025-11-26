@@ -1,12 +1,17 @@
 "use client";
 import { useLoginMutation } from "@/redux/api/authApi";
+import { setUser } from "@/redux/features/authSlice";
+
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [login] = useLoginMutation();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     const formData = new FormData();
@@ -14,9 +19,16 @@ const Login = () => {
     formData.append("login", "super.admin@gmail.com");
     formData.append("password", "123456");
 
-    const result = await login(formData);
+    const result = await login(formData).unwrap();
 
-    console.log(result);
+    const data = result?.data?.data;
+
+    const user = data?.user;
+
+    if (result.success) {
+      dispatch(setUser({ user: user?.email, token: result?.data?.token }));
+      router.push("/");
+    }
   };
 
   return (
