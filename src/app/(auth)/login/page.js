@@ -1,12 +1,22 @@
 "use client";
+import { useLoginMutation } from "@/redux/api/authApi";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Login = () => {
-  const handleSubmit = (e) => {
-    console.log(e);
+  const [login] = useLoginMutation();
+
+  const handleSubmit = async (e) => {
+    const formData = new FormData();
+
+    formData.append("login", "super.admin@gmail.com");
+    formData.append("password", "123456");
+
+    const result = await login(formData);
+
+    console.log(result);
   };
 
   return (

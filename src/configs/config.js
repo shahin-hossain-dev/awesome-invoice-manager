@@ -1,5 +1,5 @@
 const config = {
-  baseAPI: process.env.NEXT_PUBLIC_BASE_API,
+  apiBaseUrl: process.env.NEXT_PUBLIC_BASE_API_URL,
 };
 
 export default config;

@@ -41,6 +41,7 @@ const Sidebar = () => {
       setting: "/settings",
       tax: "/settings/tax",
       globalSetting: "/global-setting",
+      company: "/company",
     };
 
     const routes = {
@@ -53,6 +54,7 @@ const Sidebar = () => {
       7: ROUTES.setting,
       8: ROUTES.category,
       9: ROUTES.tax,
+      10: ROUTES.company,
     };
 
     router.push(routes[e.key] || "/");
@@ -118,6 +120,11 @@ const Sidebar = () => {
     {
       key: "4",
       label: "Customers",
+      icon: <CgUserList className="text-icon" />,
+    },
+    {
+      key: "10",
+      label: "Company",
       icon: <CgUserList className="text-icon" />,
     },
     { key: "5", label: "Users", icon: <CgUserList className="text-icon" /> },

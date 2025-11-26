@@ -213,19 +213,23 @@ const CreateInvoice = ({ isCreate }) => {
 
           <div className="flex justify-end">
             <div className="space-y-2">
-              <div className="grid grid-cols-2 place-items-center">
+              <div className="grid grid-cols-2 place-items-center justify-items-end gap-4 lg:gap-6">
                 <span className="text-base">Sub Total: </span>
                 <Input readOnly={true} value={`৳ 2000`} variant="filled" />
               </div>
-              <div className="grid grid-cols-2 place-items-center">
+              <div className="grid grid-cols-2 place-items-center justify-items-end gap-4 lg:gap-6">
                 <span className="text-base">Discount: </span>
                 <Input readOnly={true} value={`৳ 20`} variant="filled" />
               </div>
-              <div className="grid grid-cols-2 place-items-center">
-                <span className="text-base">Coupon: </span>
+              <div className="grid grid-cols-2 place-items-center justify-items-end gap-4 lg:gap-6">
+                <span className="text-base">TAX: </span>
                 <Input readOnly={true} variant="filled" />
               </div>
-              <div className="grid grid-cols-2 place-items-center">
+              <div className="grid grid-cols-2 place-items-center justify-items-end gap-4 lg:gap-6">
+                <span className="text-base">Shipping Fee: </span>
+                <Input readOnly={true} variant="filled" />
+              </div>
+              <div className="grid grid-cols-2 place-items-center justify-items-end gap-4 lg:gap-6">
                 <span className="text-base">Total: </span>
                 <Input readOnly={true} value={"৳ 220"} variant="filled" />
               </div>

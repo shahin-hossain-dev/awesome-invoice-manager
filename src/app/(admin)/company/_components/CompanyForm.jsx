@@ -1,11 +1,11 @@
 "use client";
 import { Button, Form, Upload } from "antd";
-import FormDiv from "../components/form/FormDiv";
+import FormDiv from "../../components/form/FormDiv";
 import { Controller, useForm } from "react-hook-form";
-import { FormInput } from "../components/form/fields";
+import { FormInput } from "../../components/form/fields";
 import { UploadOutlined } from "@ant-design/icons";
 
-const AppSettings = () => {
+const CompanyForm = () => {
   const { register, control, handleSubmit, setValue } = useForm({
     // defaultValues: {
     //   firstName: "",
@@ -250,42 +250,4 @@ const AppSettings = () => {
   );
 };
 
-export default AppSettings;
-
-// const AccountSetting = () => {
-//   const { isModalOpen, handleCancel, showModal } = useModalOpen();
-
-//   return (
-//     <div>
-//       <h2>Reports</h2>
-//       <Button onClick={showModal}>Modal Open</Button>
-//       <Modal open={isModalOpen} onCancel={handleCancel}>
-//         <h2>Some text Here</h2>
-//         <h3>Reuseable Modal</h3>
-//       </Modal>
-//       <AccountOption />
-//     </div>
-//   );
-// };
-
-// export default AccountSetting;
-
-// const AccountOption = () => {
-//   const { isModalOpen, handleCancel, showModal } = useModalOpen();
-
-//   return (
-//     <div>
-//       <h2>Account Options</h2>
-
-//       <Button onClick={showModal}>Modal Open</Button>
-//       <Modal
-//         title={"Update Profile"}
-//         open={isModalOpen}
-//         onCancel={handleCancel}
-//       >
-//         <h2>Some text Here Two</h2>
-//         <h3>Reuseable Modal Two</h3>
-//       </Modal>
-//     </div>
-//   );
-// };
+export default CompanyForm;
