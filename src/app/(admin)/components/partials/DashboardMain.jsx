@@ -1,5 +1,5 @@
 "use client";
-import { Breadcrumb, Layout } from "antd";
+import { Layout } from "antd";
 import DashboardFooter from "./Footer";
 import Header from "./Header";
 

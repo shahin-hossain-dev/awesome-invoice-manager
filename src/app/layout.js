@@ -5,7 +5,6 @@ import "@ant-design/v5-patch-for-react-19";
 import "./styles/globals.css";
 import ThemeContextProvider from "@/contexts/ThemeContext";
 import ReduxStoreProvider from "@/contexts/ReduxStoreProvider";
-import authChecker from "@/libs/auth";
 
 const publicSanse = Public_Sans({
   variable: "--font-public-sans",
