@@ -17,7 +17,7 @@ const CompanyList = ({
     {
       key: "1",
       name: "Akbar",
-      company: "Company 1",
+      contact_person: "Person 1",
       phone: "This Is Blog 1",
       email: "email@gmail.com",
       address: "Customer",
@@ -25,7 +25,7 @@ const CompanyList = ({
     {
       key: "2",
       name: "Hossain",
-      company: "Company 2",
+      contact_person: "Person 2",
       phone: "This Is Blog 1",
       email: "email@gmail.com",
       address: "Customer",
@@ -33,7 +33,7 @@ const CompanyList = ({
     {
       key: "3",
       name: "Price",
-      company: "Company 3",
+      contact_person: "Person 3",
       phone: "This Is Blog 1",
       email: "email@gmail.com",
       address: "Customer",
@@ -48,8 +48,8 @@ const CompanyList = ({
       sorter: (a, b) => Number(a.key) - Number(b.key),
     },
     {
-      title: "Company",
-      dataIndex: "company",
+      title: "Contact Person",
+      dataIndex: "contact_person",
       key: "2",
       sorter: (a, b) => a.title.localeCompare(b.title),
     },

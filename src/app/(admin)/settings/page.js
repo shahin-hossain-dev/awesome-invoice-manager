@@ -4,14 +4,25 @@ import FormDiv from "../components/form/FormDiv";
 import { Controller, useForm } from "react-hook-form";
 import { FormInput } from "../components/form/fields";
 import { UploadOutlined } from "@ant-design/icons";
+import { useGetUserInfoQuery } from "@/redux/api/userApi";
+import { useSelector } from "react-redux";
 
 const AppSettings = () => {
+  const authData = useSelector((state) => state.authReducer);
+
+  const user = authData.user;
+  const { data, isLoading, isSuccess } = useGetUserInfoQuery(user?.userId);
+
   const { register, control, handleSubmit, setValue } = useForm({
     // defaultValues: {
     //   firstName: "",
     //   select: {},
     // },
   });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  console.log(data);
 
   const onSubmit = (data) => {
     console.log(data);

@@ -13,7 +13,7 @@ const CompanyPage = () => {
   return (
     <div>
       <Drawer
-        title={"Create Customer"}
+        title={"Create Company"}
         open={isDrawerOpen}
         onClose={handleDrawerClose}
         className={"!bg-main-background"}
@@ -22,7 +22,7 @@ const CompanyPage = () => {
           <CompanyForm />
         </div>
       </Drawer>
-      <PageTopBar buttonTitle={"Create Customer"} onClick={handleDrawerOpen} />
+      <PageTopBar buttonTitle={"Create Company"} onClick={handleDrawerOpen} />
       <CompanyList />
     </div>
   );

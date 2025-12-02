@@ -1,4 +1,3 @@
-// import config from "@/configs/config";
 import axiosSecure from "@/libs/axios";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -10,9 +9,18 @@ export const baseApi = createApi({
   //     "Content-Type": "application/json",
   //   },
   // }),
-  baseQuery: async ({ url, method, data, params, headers }) => {
+  // ...args = { url, method, data, params, headers }
+  baseQuery: async ({ ...args }, api) => {
     try {
-      const result = await axiosSecure({ url, method, data, params, headers });
+      // get token from redux authSlice state
+      const token = api.getState()?.authReducer?.token;
+
+      const headers = {
+        ...(args.headers || {}),
+        Authorization: `bearer ${token}`,
+      };
+
+      const result = await axiosSecure({ ...args, headers });
       return { data: result.data };
     } catch (axiosError) {
       const err = axiosError;

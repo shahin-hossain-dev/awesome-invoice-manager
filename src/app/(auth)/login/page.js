@@ -1,5 +1,5 @@
 "use client";
-import { useLoginMutation } from "@/redux/api/authApi";
+import { axiosPublic } from "@/libs/axios";
 import { setUser } from "@/redux/features/authSlice";
 
 import { Button, Checkbox, Flex, Form, Input } from "antd";
@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const [login] = useLoginMutation();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -19,14 +18,19 @@ const Login = () => {
     formData.append("login", "super.admin@gmail.com");
     formData.append("password", "123456");
 
-    const result = await login(formData).unwrap();
+    const result = await axiosPublic.post("/login", formData);
 
     const data = result?.data?.data;
 
     const user = data?.user;
 
-    if (result.success) {
-      dispatch(setUser({ user: user?.email, token: result?.data?.token }));
+    if (result.status === 200) {
+      dispatch(
+        setUser({
+          user: { email: user?.email, userId: user?.id },
+          token: data?.token,
+        })
+      );
       router.push("/");
     }
   };
