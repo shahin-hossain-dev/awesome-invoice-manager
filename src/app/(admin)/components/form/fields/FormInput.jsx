@@ -23,6 +23,7 @@ const FormInput = React.forwardRef(
       className = "",
       inputClassName = "",
       required,
+      type = "text",
       ...rest
     },
     ref
@@ -37,6 +38,7 @@ const FormInput = React.forwardRef(
       >
         <Input
           ref={ref}
+          type={type}
           name={name}
           value={value}
           onChange={onChange}

@@ -1,37 +1,62 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { Button, Checkbox, Flex, Form } from "antd";
+import { FormInput } from "@/app/(admin)/components/form/fields";
 import { axiosPublic } from "@/libs/axios";
 import { setUser } from "@/redux/features/authSlice";
 
-import { Button, Checkbox, Flex, Form, Input } from "antd";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+const schema = yup
+  .object({
+    login: yup.string().max(50).required(),
+    password: yup.string().min(6).max(16).required().matches(),
+  })
+  .required();
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (e) => {
     const formData = new FormData();
 
-    formData.append("login", "super.admin@gmail.com");
-    formData.append("password", "123456");
+    formData.append("login", e.login);
+    formData.append("password", e.password);
 
-    const result = await axiosPublic.post("/login", formData);
+    try {
+      const result = await axiosPublic.post("/login", formData);
 
-    const data = result?.data?.data;
+      const data = result?.data?.data;
+      const user = data?.user;
 
-    const user = data?.user;
-
-    if (result.status === 200) {
-      dispatch(
-        setUser({
-          user: { email: user?.email, userId: user?.id },
-          token: data?.token,
-        })
-      );
-      router.push("/");
+      if (result.status === 200) {
+        dispatch(
+          setUser({
+            user: { email: user?.email, userId: user?.id },
+            token: data?.token,
+          })
+        );
+        router.push("/");
+      }
+    } catch (error) {
+      const message = error.response?.data?.message;
+      setError("root", { type: "server", message: message });
+      console.log(error.response?.data);
     }
   };
 
@@ -45,13 +70,17 @@ const Login = () => {
             height={50}
             width={50}
           />
-          <h2 className=""> Commerce</h2>
+          <h2 className=""> Artificial Soft</h2>
         </div>
         <div>
-          <Form layout="vertical" autoComplete="off" onFinish={handleSubmit}>
+          <Form
+            layout="vertical"
+            autoComplete="off"
+            onFinish={handleSubmit(onSubmit)}
+          >
             <Flex vertical gap={2}>
               <div>
-                <Form.Item
+                {/* <Form.Item
                   name="username"
                   label="Username or email"
                   rules={[
@@ -66,10 +95,42 @@ const Login = () => {
                     size="large"
                     placeholder="Enter username or email"
                   />
-                </Form.Item>
+                </Form.Item> */}
+
+                <Controller
+                  name="login"
+                  control={control}
+                  rules={{ required: "username or email is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormInput
+                      {...field}
+                      size="large"
+                      label="Username or Email"
+                      placeholder="Username or Email"
+                      validateStatus={fieldState?.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                    />
+                  )}
+                />
               </div>
               <div>
-                <Form.Item
+                <Controller
+                  name="password"
+                  control={control}
+                  rules={{ required: "Password is required" }}
+                  render={({ field, fieldState }) => (
+                    <FormInput
+                      {...field}
+                      type="password"
+                      size="large"
+                      label="Password"
+                      placeholder="Password"
+                      validateStatus={fieldState?.error ? "error" : ""}
+                      help={fieldState?.error?.message}
+                    />
+                  )}
+                />
+                {/* <Form.Item
                   name="password"
                   label="Password"
                   rules={[
@@ -81,7 +142,7 @@ const Login = () => {
                     size="large"
                     placeholder="************"
                   />
-                </Form.Item>
+                </Form.Item> */}
               </div>
               <div>
                 <Form.Item name="remember" valuePropName="checked" label={null}>
@@ -97,6 +158,9 @@ const Login = () => {
                   </div>
                 </Form.Item>
               </div>
+              {errors?.root?.message && (
+                <p className="text-red-500  text-sm">{errors?.root?.message}</p>
+              )}
 
               <Button size="large" type="primary" htmlType="submit">
                 Login
