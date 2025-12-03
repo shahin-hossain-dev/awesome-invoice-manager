@@ -1,9 +1,11 @@
+"use client";
 import React, { useState } from "react";
 import Table from "../../components/ui/Table";
 import { Space } from "antd";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { showConfirmAlert } from "@/utils/alert";
+import { useGetCompanyListQuery } from "@/redux/api/companyApi";
 
 const CompanyList = ({
   handleDrawerOpen,
@@ -13,32 +15,47 @@ const CompanyList = ({
 }) => {
   const [isRowsSelected, setIsRowsSelected] = useState(false);
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Akbar",
-      contact_person: "Person 1",
-      phone: "This Is Blog 1",
-      email: "email@gmail.com",
-      address: "Customer",
-    },
-    {
-      key: "2",
-      name: "Hossain",
-      contact_person: "Person 2",
-      phone: "This Is Blog 1",
-      email: "email@gmail.com",
-      address: "Customer",
-    },
-    {
-      key: "3",
-      name: "Price",
-      contact_person: "Person 3",
-      phone: "This Is Blog 1",
-      email: "email@gmail.com",
-      address: "Customer",
-    },
-  ];
+  const { data, isLoading } = useGetCompanyListQuery();
+
+  if (isLoading) return;
+
+  const dataSource = data?.map((item) => {
+    return {
+      key: item?.id,
+      name: item?.name,
+      phone: item?.phone,
+      contact_person: item.contact_person,
+      email: item.email,
+      address: item.address,
+    };
+  });
+
+  // const dataSource = [
+  //   {
+  //     key: "1",
+  //     name: "Akbar",
+  //     contact_person: "Person 1",
+  //     phone: "This Is Blog 1",
+  //     email: "email@gmail.com",
+  //     address: "Customer",
+  //   },
+  //   {
+  //     key: "2",
+  //     name: "Hossain",
+  //     contact_person: "Person 2",
+  //     phone: "This Is Blog 1",
+  //     email: "email@gmail.com",
+  //     address: "Customer",
+  //   },
+  //   {
+  //     key: "3",
+  //     name: "Price",
+  //     contact_person: "Person 3",
+  //     phone: "This Is Blog 1",
+  //     email: "email@gmail.com",
+  //     address: "Customer",
+  //   },
+  // ];
 
   const columns = [
     {

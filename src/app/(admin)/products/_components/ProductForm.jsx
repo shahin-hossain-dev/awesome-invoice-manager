@@ -157,8 +157,8 @@ const ProductForm = () => {
                       // required={true}
                       rows={4}
                       size={"large"}
-                      label={"Product Name"}
-                      placeholder="Product Name"
+                      label={"Product Description"}
+                      placeholder="Product Description"
                       // validateStatus={fieldState?.error ? "error" : ""}
                       // help={fieldState?.error?.message}
                     />
