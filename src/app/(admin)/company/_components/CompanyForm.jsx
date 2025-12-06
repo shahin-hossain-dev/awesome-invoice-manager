@@ -7,8 +7,9 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useCreateCompanyMutation } from "@/redux/api/companyApi";
 import FormTextArea from "../../components/form/fields/FormTextArea";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import * as yup from "yup";
+import Notification from "../../components/ui/Notification";
+import { useState } from "react";
 
 // helper: check if UploadFile array contains a File
 const getFileFromUploadValue = (uploadValue) => {
@@ -22,7 +23,7 @@ const getFileFromUploadValue = (uploadValue) => {
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 
 const schema = yup.object().shape({
-  name: yup.string().required("Company name is required"),
+  company: yup.string().required("Company name is required"),
   customerName: yup.string().nullable(),
   email: yup.string().email("Invalid email").required("Email is required"),
   phone: yup.string().required("Phone number is required"),
@@ -73,12 +74,13 @@ const schema = yup.object().shape({
 });
 
 const CompanyForm = () => {
+  const [created, setCreated] = useState(false);
   const [createCompany, { data, isLoading }] = useCreateCompanyMutation();
 
   const { register, control, handleSubmit, setValue } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      name: "",
+      company: "",
       customerName: "",
       email: "",
       phone: "",
@@ -109,7 +111,7 @@ const CompanyForm = () => {
       if (logoFile) companyData.append("logo", logoFile, logoFile.name);
       if (qrFile) companyData.append("qrcode", qrFile, qrFile.name);
 
-      companyData.append("name", data?.name);
+      companyData.append("name", data?.company);
       companyData.append("contact_person", data?.customerName);
       companyData.append("email", data?.email);
       companyData.append("phone", data?.phone);
@@ -124,11 +126,18 @@ const CompanyForm = () => {
       companyData.append("bank_account_details", data?.bank_account_details);
 
       const result = await createCompany(companyData).unwrap();
+      console.log(result);
+
+      setCreated(true);
+
+      console.log(created);
     } catch (error) {
       console.log("Error:", error?.message);
     }
+  };
 
-    console.log(result);
+  const onError = (errors) => {
+    console.log("Validation errors:", errors);
   };
 
   return (
@@ -140,7 +149,7 @@ const CompanyForm = () => {
           // wrapperCol={{ span: 16 }}
           // style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          onFinish={handleSubmit(onSubmit)}
+          onFinish={handleSubmit(onSubmit, onError)}
           autoComplete="off"
           layout="vertical"
           size="large"
@@ -448,6 +457,7 @@ const CompanyForm = () => {
           </div>
         </Form>
       </div>
+      <Notification created={created} />
     </div>
   );
 };
